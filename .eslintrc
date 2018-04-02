@@ -1,0 +1,18 @@
+{
+  "extends": "rallycoding",
+  "rules": {
+    "no-underscore-dangle": 0,
+    "no-class-assign": 0,
+    "arrow-body-style": 0,
+    "global-require": 0,
+    "react/sort-comp": 0,
+    "react/require-extension": 0,
+    "max-len": ["error", 130, 2, {
+      "ignoreUrls": true,
+      "ignoreComments": false
+    }]
+  },
+  "globals": {
+    "window":true
+  }
+}
