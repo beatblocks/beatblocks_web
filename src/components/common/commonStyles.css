@@ -104,3 +104,16 @@
     grid-template-rows: 30px 30px;
 
 }
+
+.WebPlayer-footer-container {
+    grid-area: footer;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #c9c9c9;
+}
+
+.WebPlayer-footer-container audio {
+    flex: 0.5;
+    background-color: #000000;
+}

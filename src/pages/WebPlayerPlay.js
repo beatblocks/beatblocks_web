@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { WebPlayerSideBar } from '../components/common';
+import { WebPlayerSideBar, WebPlayerFooter } from '../components/common';
 import './pageStyles.css';
 
 class WebPlayerPlay extends Component {
@@ -7,6 +7,7 @@ class WebPlayerPlay extends Component {
     return (
       <div className="WebPlayer-container">
         <WebPlayerSideBar />
+        <WebPlayerFooter />
       </div>
     );
   }
