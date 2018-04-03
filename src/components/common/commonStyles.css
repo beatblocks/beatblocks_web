@@ -5,7 +5,7 @@
     background-color: rgba(18, 18, 18, 0.9);
     height: 50px;
     padding: 20px 20px 20px 50px;
-    color: white;
+    color: whitesmoke;
     position: fixed;
     top: 0;
     width: 100%;
@@ -39,7 +39,7 @@
 .Header-link {
     font-size: 16px;
     margin-left: 20px;
-    color: #FFFFFF;
+    color: whitesmoke;
     text-decoration: none;
 }
 
@@ -49,7 +49,7 @@
     justify-content: center;
     height: 50px;
     padding: 20px;
-    color: white;
+    color: whitesmoke;
     position: fixed;
     bottom: 0;
     width: 100%;
@@ -71,4 +71,36 @@
 
 .Footer-intro {
     font-size: medium;
+}
+
+.WebPlayer-sidebar {
+    grid-area: sidebar;
+    background-color: #222222;
+    display: grid;
+    grid-template-rows: 50px 1fr;
+    padding: 20px 10px 20px 10px;
+}
+
+.WebPlayer-sidebar img {
+    height: 42px;
+    width: 42px;
+}
+
+.WebPlayer-sidebar-logo-container {
+    height: 50px;
+    width: 100%;
+    border-bottom: 2px solid whitesmoke;
+}
+
+.WebPlayer-sidebar-link {
+    font-size: 16px;
+    color: whitesmoke;
+    text-decoration: none;
+}
+
+.WebPlayer-sidebar-links-container {
+    display: grid;
+    margin-top: 10px;
+    grid-template-rows: 30px 30px;
+
 }

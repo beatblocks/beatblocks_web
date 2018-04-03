@@ -12,7 +12,7 @@ class Header extends Component {
           <h1 className="Header-intro">Beat Blocks</h1>
         </div>
         <div className="Header-right">
-          <Link to={'/player'} className="Header-link">Web Player</Link>
+          <Link to={'/player/browse'} className="Header-link">Web Player</Link>
           <Link to={'/publish'} className="Header-link">Publish</Link>
         </div>
       </header>
