@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import ReactAudioPlayer from 'react-audio-player';
 import { connect } from 'react-redux';
+import { getNextTrack } from '../../actions';
 import './commonStyles.css';
 
 class WebPlayerFooter extends Component {
@@ -13,6 +14,7 @@ class WebPlayerFooter extends Component {
           autoPlay
           controls
           controlsList="nodownload"
+          onEnded={this.getNextTrack}
         />
       </div>
     );
@@ -24,6 +26,9 @@ class WebPlayerFooter extends Component {
     });
     return sources;
   }
+  getNextTrack = () => {
+    this.props.getNextTrack();
+  };
 }
 
 const mapStateToProps = (state) => {
@@ -34,6 +39,6 @@ const mapStateToProps = (state) => {
   };
 };
 
-WebPlayerFooter = connect(mapStateToProps, {})(WebPlayerFooter);
+WebPlayerFooter = connect(mapStateToProps, { getNextTrack })(WebPlayerFooter);
 
 export { WebPlayerFooter };

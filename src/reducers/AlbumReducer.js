@@ -1,5 +1,6 @@
 import {
-  SELECT_TRACK
+  SELECT_TRACK,
+  NEXT_TRACK
 } from '../actions';
 import album from '../assests/albumexample.jpeg';
 import around from '../assests/sounds/around.mp3';
@@ -37,6 +38,7 @@ const initialState = {
   releaseYear: '2018',
   tracks,
   selectedTrack: '',
+  trackIndex: 0
 };
 
 export const AlbumReducer = (state = initialState, action) => {
@@ -44,7 +46,14 @@ export const AlbumReducer = (state = initialState, action) => {
     case SELECT_TRACK:
       return {
         ...state,
-        selectedTrack: state.tracks[action.payload]
+        selectedTrack: state.tracks[action.payload],
+        trackIndex: action.payload
+      };
+    case NEXT_TRACK:
+      return {
+        ...state,
+        selectedTrack: state.tracks[state.trackIndex + 1],
+        trackIndex: state.trackIndex + 1
       };
     default:
       return state;
