@@ -13,6 +13,8 @@ export const getNextTrack = () => {
     const tracks = getState().album.tracks;
 
     if (tracks.length <= currentTrackIndex + 1) return;
+
+
     dispatch({
       type: NEXT_TRACK
     });

@@ -38,7 +38,8 @@ const initialState = {
   releaseYear: '2018',
   tracks,
   selectedTrack: '',
-  trackIndex: 0
+  trackIndex: 0,
+  subscribed: false
 };
 
 export const AlbumReducer = (state = initialState, action) => {

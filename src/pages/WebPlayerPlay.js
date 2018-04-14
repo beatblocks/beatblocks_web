@@ -31,10 +31,14 @@ class WebPlayerPlay extends Component {
     );
   }
   getAlbumListElements() {
-    const { tracks } = this.props;
+    const { tracks, subscribed } = this.props;
     return tracks.map((song, index) => {
       return (
-        <div className="WebPlayer-track" onClick={() => this.props.selectTrack(index)}>
+        <div
+          key={index}
+          className={subscribed ? 'WebPlayer-track' : 'WebPlayer-track-disabled'}
+          onClick={this.selectTrack(index, song.isSample)}
+        >
           <div className="WebPlayer-track-number"><p>{index + 1}.</p></div>
           <div className="WebPlayer-track-title"><p>{song.title}</p></div>
           <div className="WebPlayer-track-duration"><p>{song.metadata.duration}</p></div>
@@ -42,16 +46,21 @@ class WebPlayerPlay extends Component {
       );
     });
   }
+  selectTrack = (index, isSample) => () => {
+    if (!this.props.subscribed) return;
+    this.props.selectTrack(index);
+  };
 }
 
 const mapStateToProps = (state) => {
-  const { img, title, artist, releaseYear, tracks } = state.album;
+  const { img, title, artist, releaseYear, tracks, subscribed } = state.album;
   return {
     img,
     title,
     artist,
     releaseYear,
-    tracks
+    tracks,
+    subscribed
   };
 };
 

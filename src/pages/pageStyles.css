@@ -104,6 +104,19 @@
     margin-bottom: -0.001px;
 }
 
+.WebPlayer-track-disabled {
+    display: grid;
+    grid-template-columns: 0.5fr 8.5fr 1fr;
+    grid-template-areas: "num title duration";
+    border-bottom: 1px solid gray;
+    margin-right: 100px;
+}
+
+.WebPlayer-track-disabled p {
+    color: gray;
+    margin-bottom: -0.001px;
+}
+
 .WebPlayer-track-number {
     grid-area: num;
 }
