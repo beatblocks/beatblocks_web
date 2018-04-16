@@ -24,7 +24,9 @@
   "homepage": "https://github.com/beatblocks/beatblocks_web#readme",
   "dependencies": {
     "express": "^4.16.3",
-    "morgan": "^1.9.0"
+    "ipfs-api": "^20.0.1",
+    "morgan": "^1.9.0",
+    "web3": "^1.0.0-beta.26"
   },
   "devDependencies": {
     "babel-cli": "^6.26.0",

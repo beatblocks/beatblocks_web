@@ -4,6 +4,7 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "ipfs-api": "^20.0.1",
     "npm": "^5.8.0",
     "react": "^16.3.0",
     "react-audio-player": "^0.9.0",
@@ -14,7 +15,7 @@
     "redux": "^3.7.2",
     "redux-logger": "^3.0.6",
     "redux-thunk": "^2.2.0",
-    "web3": "^1.0.0-beta.34"
+    "web3": "^1.0.0-beta.26"
   },
   "scripts": {
     "start": "react-scripts start",
