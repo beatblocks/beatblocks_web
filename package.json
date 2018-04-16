@@ -1,28 +1,37 @@
 {
   "name": "beatblocks_web",
-  "version": "0.1.0",
-  "private": true,
-  "dependencies": {
-    "npm": "^5.8.0",
-    "react": "^16.3.0",
-    "react-audio-player": "^0.9.0",
-    "react-dom": "^16.3.0",
-    "react-redux": "^5.0.7",
-    "react-router-dom": "^4.2.2",
-    "react-scripts": "1.1.1",
-    "redux": "^3.7.2",
-    "redux-logger": "^3.0.6",
-    "redux-thunk": "^2.2.0",
-    "web3": "^1.0.0-beta.34"
-  },
+  "version": "1.0.0",
+  "description": "This project was bootstrapped with [Create React App](https://github.com/facebookincubator/create-react-app).",
+  "main": "index.js",
   "scripts": {
-    "start": "react-scripts start",
-    "build": "react-scripts build",
-    "test": "react-scripts test --env=jsdom",
-    "eject": "react-scripts eject"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "rimraf dist/ && babel ./ --out-dir dist/ --ignore ./node_modules,./.babelrc,./package.json,./package-lock.json,README.md,./npm-debug.log,./client --copy-files",
+    "start": "npm run build && nodemon dist/server.js",
+    "client": "cd client && npm start",
+    "server": "nodemon server.js",
+    "dev": "concurrently --kill-others-on-fail \"npm run start\" \"npm run client\""
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/beatblocks/beatblocks_web.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/beatblocks/beatblocks_web/issues"
+  },
+  "homepage": "https://github.com/beatblocks/beatblocks_web#readme",
+  "dependencies": {
+    "express": "^4.16.3",
+    "morgan": "^1.9.0"
   },
   "devDependencies": {
+    "babel-cli": "^6.26.0",
+    "babel-preset-env": "^1.6.1",
+    "concurrently": "^3.5.1",
     "eslint": "^4.19.1",
-    "eslint-config-rallycoding": "^3.2.0"
+    "eslint-config-rallycoding": "^3.2.0",
+    "rimraf": "^2.6.2"
   }
 }
