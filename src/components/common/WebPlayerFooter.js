@@ -6,11 +6,12 @@ import './commonStyles.css';
 
 class WebPlayerFooter extends Component {
   render() {
-    const sources = this.getSources(this.props.tracks);
+    let mp3 = '';
+    if (this.props.selectedTrack) mp3 = this.props.selectedTrack.mp3;
     return (
       <div className="WebPlayer-footer-container">
         <ReactAudioPlayer
-          src={sources[this.props.selectedTrack.title]}
+          src={mp3}
           autoPlay
           controls
           controlsList="nodownload"
@@ -18,13 +19,6 @@ class WebPlayerFooter extends Component {
         />
       </div>
     );
-  }
-  getSources(tracks) {
-    const sources = {};
-    tracks.forEach((track) => {
-      sources[track.title] = track.mp3;
-    });
-    return sources;
   }
   getNextTrack = () => {
     this.props.getNextTrack();

@@ -1,7 +1,6 @@
 import {
   SELECT_TRACK,
-  NEXT_TRACK,
-  SELECT_ALBUM
+  NEXT_TRACK
 } from '../actions';
 import album from '../assests/albumexample.jpeg';
 import around from '../assests/sounds/around.mp3';
@@ -32,38 +31,31 @@ const tracks = [
   },
 ];
 
-const initialState = {
+const mockAlbum = {
   title: 'We are the Best',
   artist: 'The Bois',
   img: album,
   releaseYear: '2018',
   tracks,
-  playQueue: [],
-  selectedTrack: '',
-  subscribed: true
 };
 
-export const AlbumReducer = (state = initialState, action) => {
+const initialState = {
+  albums: [mockAlbum, mockAlbum, mockAlbum, mockAlbum, mockAlbum]
+};
+
+export const BrowseReducer = (state = initialState, action) => {
   switch (action.type) {
-    case SELECT_ALBUM:
-      return {
-        ...state,
-        title: action.payload.title,
-        artist: action.payload.img,
-        releaseYear: action.payload.releaseYear,
-        tracks: action.payload.tracks,
-      };
     case SELECT_TRACK:
       return {
         ...state,
         selectedTrack: state.tracks[action.payload],
-        playQueue: state.tracks.slice(action.payload + 1, state.tracks.length)
+        trackIndex: action.payload
       };
     case NEXT_TRACK:
       return {
         ...state,
-        selectedTrack: state.playQueue[0],
-        playQueue: state.playQueue.slice(1, state.playQueue.length)
+        selectedTrack: state.tracks[state.trackIndex + 1],
+        trackIndex: state.trackIndex + 1
       };
     default:
       return state;

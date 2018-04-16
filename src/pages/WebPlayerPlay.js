@@ -37,7 +37,7 @@ class WebPlayerPlay extends Component {
         <div
           key={index}
           className={subscribed ? 'WebPlayer-track' : 'WebPlayer-track-disabled'}
-          onClick={this.selectTrack(index, song.isSample)}
+          onClick={this.selectTrack(index)}
         >
           <div className="WebPlayer-track-number"><p>{index + 1}.</p></div>
           <div className="WebPlayer-track-title"><p>{song.title}</p></div>
@@ -46,7 +46,7 @@ class WebPlayerPlay extends Component {
       );
     });
   }
-  selectTrack = (index, isSample) => () => {
+  selectTrack = (index) => () => {
     if (!this.props.subscribed) return;
     this.props.selectTrack(index);
   };

@@ -8,15 +8,7 @@ export const selectTrack = (trackIndex) => {
 };
 
 export const getNextTrack = () => {
-  return (dispatch, getState) => {
-    const currentTrackIndex = getState().album.trackIndex;
-    const tracks = getState().album.tracks;
-
-    if (tracks.length <= currentTrackIndex + 1) return;
-
-
-    dispatch({
-      type: NEXT_TRACK
-    });
+  return {
+    type: NEXT_TRACK,
   };
 };
