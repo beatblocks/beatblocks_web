@@ -150,37 +150,3 @@
     justify-items: center;
 }
 
-.PublishForm-fields {
-    display: grid;
-    grid-area: fields;
-    grid-template-columns: 1fr 1fr;
-    grid-template-areas: "album-info  tracks";
-    justify-items: center;
-}
-
-.PublishForm-buttons {
-    grid-area: buttons;
-}
-
-.PublishForm-album-info {
-    grid-area: album-info;
-}
-
-.PublishForm-tracks {
-    display: flex;
-    grid-area: tracks;
-    justify-content: center;
-}
-
-.PublishForm-album-info > div {
-    margin-bottom: 30px;
-    margin-top: 5px;
-}
-
-.PublishForm-tracks-add-btn {
-    color: whitesmoke;
-    background-color: royalblue;
-    font-size: 14px;
-    border-radius: 6px;
-    border: none;
-}
