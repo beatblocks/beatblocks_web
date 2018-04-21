@@ -1,8 +1,14 @@
-.Page-container {
+.HomePage-container {
     height: 100%;
-    width: 100%;
-    padding: 100px 50px 50px 50px;
-    margin: 0;
+    width: 42em;
+    padding: 150px 50px 50px 50px;
+    margin: auto;
+    text-align: center;
+    align-self: center;
+}
+
+.HomePage-container div {
+    padding-top: 50px;
 }
 
 .WebPlayer-container {

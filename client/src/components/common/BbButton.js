@@ -1,12 +1,26 @@
 import React, { Component } from 'react';
+import { withRouter } from 'react-router-dom';
 import './commonStyles.css';
 
 class BbButton extends Component {
   render() {
+    const { classNames, to } = this.props;
+    let classNamesStr = '';
+    if (classNames) classNamesStr = classNames.join(' ');
+
+    let onClick;
+    if (to) onClick = this.reRoute;
+
     return (
-      <button className={this.props.className}>{this.props.children}</button>
+      <button onClick={onClick} className={`btn-base ${classNamesStr}`}>{this.props.children}</button>
     );
   }
+
+  reRoute() {
+    this.props.history.push(this.props.to);
+  }
 }
+
+BbButton = withRouter(BbButton);
 
 export { BbButton };

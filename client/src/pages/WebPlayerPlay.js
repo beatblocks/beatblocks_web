@@ -19,7 +19,7 @@ class WebPlayerPlay extends Component {
               <div id="album-title"><p>{title}</p></div>
               <div id="album-artist"><p>{artist}</p></div>
               <div id="album-info"><p>{releaseYear} - {tracks.length} Songs</p></div>
-              <div id="album-subscribe"><BbButton className="btn-cta">Subscribe</BbButton></div>
+              <div id="album-subscribe"><BbButton classNames={['btn-cta-primary']}>Subscribe</BbButton></div>
             </div>
           </div>
           <div className="WebPlayer-album-tracks-cell">

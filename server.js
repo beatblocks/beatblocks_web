@@ -24,7 +24,8 @@ const aesDecrypt = (encryptedContent) => {
 app.get('/api/hello', (req, res) => {
   const mockCollection = {
     img: 'some img buffer',
-    tracks: [aesEncrypt('some encrypted mp3 1'), aesEncrypt('some  encrypted mp3 2')]
+    tracks: [{ track: 'track1', mp3: aesEncrypt('some encrypted mp3 1') },
+      { track: 'track2', mp3: aesEncrypt('some  encrypted mp3 2') }]
   };
 
   const jsonCollectionToBuffer = Buffer.from(JSON.stringify(mockCollection));

@@ -118,11 +118,20 @@
     background-color: #000000;
 }
 
-.btn-cta {
-    background-color: olive;
-    color: whitesmoke;
+.btn-base {
     border: none;
     padding: 10px 20px 10px 20px;
     font-size: 14px;
     border-radius: 6px;
+    margin: 6px;
+}
+
+.btn-cta-primary {
+    background-color: royalblue;
+    color: whitesmoke;
+}
+
+.btn-cta-secondary {
+    background-color: darkorange;
+    color: whitesmoke;
 }
