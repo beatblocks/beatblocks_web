@@ -7,7 +7,7 @@ import {
   Route,
 } from 'react-router-dom';
 import rootReducer from './reducers';
-import { Home, WebPlayerPlay } from './pages';
+import { Home, WebPlayerPlay, PublishForm } from './pages';
 
 class App extends Component {
   constructor(props) {
@@ -20,7 +20,7 @@ class App extends Component {
         <Router>
           <div>
             <Route path="/" exact component={Home} />
-            <Route path="/artist" component={Home} />
+            <Route path="/artist/publish" component={PublishForm} />
             <Route path="/player/browse" component={WebPlayerPlay} />
             <Route path="/player/music" component={WebPlayerPlay} />
           </div>

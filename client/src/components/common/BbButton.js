@@ -16,7 +16,7 @@ class BbButton extends Component {
     );
   }
 
-  reRoute() {
+  reRoute = () => {
     this.props.history.push(this.props.to);
   }
 }
