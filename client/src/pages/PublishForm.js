@@ -104,7 +104,6 @@ class PublishForm extends Component {
               </div>
             </div>
           </form>
-        <img role="presentation" src="https://ipfs.infura.io/ipfs/QmTJ88UeCCgeBnpqgLZK9k9uqT2P9VPK77WfLpTKQGenif"  />
         <Footer />
       </div>
     );
