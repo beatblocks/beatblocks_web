@@ -135,3 +135,20 @@
     background-color: darkorange;
     color: whitesmoke;
 }
+
+.btn-danger {
+    background-color: red;
+    color: whitesmoke;
+}
+
+.btn-good {
+    background-color: green;
+    color: whitesmoke;
+}
+
+.btn-small {
+    border: none;
+    padding: 5px 10px 5px 10px;
+    font-size: 10px;
+    border-radius: 6px;
+}

@@ -4,7 +4,7 @@ import './commonStyles.css';
 
 class BbButton extends Component {
   render() {
-    const { classNames, to } = this.props;
+    const { classNames, to, ...rest } = this.props;
     let classNamesStr = '';
     if (classNames) classNamesStr = classNames.join(' ');
 
@@ -12,7 +12,7 @@ class BbButton extends Component {
     if (to) onClick = this.reRoute;
 
     return (
-      <button onClick={onClick} className={`btn-base ${classNamesStr}`}>{this.props.children}</button>
+      <button onClick={onClick} className={`btn-base ${classNamesStr}`} {...rest}>{this.props.children}</button>
     );
   }
 
