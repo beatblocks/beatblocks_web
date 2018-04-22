@@ -1,4 +1,4 @@
-export const TOGGLE = 'toggleText';
+export const SET_ETH_ACCOUNT = 'set_eth_account';
 
 export const SELECT_ALBUM = 'select_album';
 export const PREVIOUS_TRACK = 'previous_track';

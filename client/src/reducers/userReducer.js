@@ -1,14 +1,16 @@
-import { TOGGLE } from '../actions/types';
+import { SET_ETH_ACCOUNT } from '../actions/types';
 
 const initialState = {
-  toggle: false
+  accounts: [],
+  slectedAccount: ''
 };
 
 export const userReducer = (state = initialState, action) => {
   switch (action.type) {
-    case TOGGLE:
+    case SET_ETH_ACCOUNT:
       return {
-        toggle: !state.toggle
+        accounts: action.payload,
+        selectedAccount: action.payload[0]
       };
     default:
       return state;

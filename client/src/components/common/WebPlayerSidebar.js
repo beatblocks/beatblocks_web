@@ -1,9 +1,20 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
+import { setAccounts } from '../../actions';
 import logo from '../../assests/logo.png';
 import './commonStyles.css';
 
 class WebPlayerSideBar extends Component {
+  componentDidMount() {
+    this.props.setAccounts();
+    this.accountChecker = setInterval(() => {
+      this.props.setAccounts();
+    }, 1000);
+  }
+  componentWillUnmount() {
+    clearInterval(this.accountChecker);
+  }
   render() {
     return (
       <div className="WebPlayer-sidebar">
@@ -19,5 +30,7 @@ class WebPlayerSideBar extends Component {
     );
   }
 }
+
+WebPlayerSideBar = connect(null, { setAccounts });
 
 export { WebPlayerSideBar };
