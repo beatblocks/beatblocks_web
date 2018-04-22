@@ -4,7 +4,7 @@ import './commonStyles.css';
 
 class BbButton extends Component {
   render() {
-    const { classNames, to, ...rest } = this.props;
+    const { classNames, to, staticContext, ...rest } = this.props;
     let classNamesStr = '';
     if (classNames) classNamesStr = classNames.join(' ');
 

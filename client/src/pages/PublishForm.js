@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
 import { reduxForm, Field, FieldArray } from 'redux-form';
+import { publishCollection } from '../actions';
 import { Header, Footer, FileInput, BbButton } from '../components/common';
 import './pageStyles.css';
 
@@ -19,6 +21,7 @@ const renderTracks = ({ fields, meta: { error } }) => (
                 name={`${track}.name`}
                 type="text"
                 component="input"
+                placeholder="Track Name"
                 label={`Track #${index + 1}`}
               />
             </div>
@@ -46,15 +49,15 @@ const renderTracks = ({ fields, meta: { error } }) => (
 );
 
 class PublishForm extends Component {
-  handleSubmit(values) {
-    console.log(values);
-  }
+  publishCollection = (values) => {
+    this.props.publishCollection(values);
+  };
 
   render() {
     return (
       <div>
         <Header />
-          <form onSubmit={this.handleSubmit}>
+          <form onSubmit={this.props.handleSubmit(this.publishCollection)}>
             <div className="PublishForm-container">
               <div className="PublishForm-fields">
                 <div className="PublishForm-album-info">
@@ -106,6 +109,14 @@ class PublishForm extends Component {
     );
   }
 }
+
+const mapStateToProps = (state) => {
+  return {
+    form: state.form
+  };
+};
+
+PublishForm = connect(mapStateToProps, { publishCollection })(PublishForm);
 
 PublishForm = reduxForm({
   form: 'PublishForm',
