@@ -32,7 +32,7 @@ export const publishCollection = (publishValues) => {
           });
         });
     };
-    imgReader.readAsBinaryString(publishValues.albumImg);
+    imgReader.readAsArrayBuffer(publishValues.albumImg);
 
     publishValues.tracks.forEach((track, index) => {
       const trackReader = new window.FileReader();
@@ -51,13 +51,13 @@ export const publishCollection = (publishValues) => {
                 console.log(trackHashArray)
 
                 const collectionHeader = {
-                  name: publishValues.name,
-                  releaseYear: publishValues.releaseYear,
+                  name: publishValues.albumName,
+                  releaseYear: publishValues.albumYear,
                   trackNames,
                   trackHashes: trackHashArray,
-                  imgHash: getState().imgHash
+                  imgHash: getState().publish.imgHash
                 };
-                ipfs.files.add({path: '', content: Buffer.from(JSON.stringify(collectionHeader))})
+                ipfs.files.add({ path: '', content: Buffer.from(JSON.stringify(collectionHeader)) })
                   .then((headerResponse) => {
                     dispatch({
                       type: IPFS_UPLOAD_COMPLETE,

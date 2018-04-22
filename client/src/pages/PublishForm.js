@@ -104,6 +104,7 @@ class PublishForm extends Component {
               </div>
             </div>
           </form>
+        <img role="presentation" src="https://ipfs.infura.io/ipfs/QmTJ88UeCCgeBnpqgLZK9k9uqT2P9VPK77WfLpTKQGenif"  />
         <Footer />
       </div>
     );
@@ -120,7 +121,7 @@ PublishForm = connect(mapStateToProps, { publishCollection })(PublishForm);
 
 PublishForm = reduxForm({
   form: 'PublishForm',
-  fields: ['albumImg'],
+  fields: ['albumImg', 'albumName', 'albumYear'],
 })(PublishForm);
 
 export { PublishForm };
