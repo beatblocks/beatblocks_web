@@ -50,12 +50,19 @@ const renderTracks = ({ fields, meta: { error } }) => (
 );
 
 class PublishForm extends Component {
+  constructor(props) {
+    super(props);
+    this.updating = false;
+    if (this.props.location.state && this.props.location.state.initialValues) {
+      this.updating = true;
+    }
+  }
   publishCollection = (values) => {
-    this.props.publishCollection(values);
+    this.props.publishCollection(values, this.props.location.state.index);
   };
 
   componentWillMount() {
-    if (this.props.location.state && this.props.location.state.initialValues) {
+    if (this.updating) {
       this.props.initialize(this.props.location.state.initialValues);
     }
   }

@@ -43,7 +43,7 @@ class Artist extends Component {
               classNames={['btn-cta-secondary', 'btn-small']}
               to={{
                 pathname: '/artist/publish',
-                state: { initialValues }
+                state: { initialValues, index }
               }}
             >
               Update

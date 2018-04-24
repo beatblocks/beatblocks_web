@@ -9,13 +9,16 @@ import { Artist, artistFactory, web3 } from '../ethereum';
 import { getArtistInfo } from './';
 import history from '../history';
 
-export const publishCollection = (publishValues) => {
+export const publishCollection = (publishValues, hashUpdateIndex = undefined) => {
   return (dispatch, getState) => {
     dispatch({
       type: PUBLISH_LOADING,
     });
 
-    const trackHashArray = Array(publishValues.tracks.length, 0);
+    const trackHashArray = [];
+    for (let i = 0; i < publishValues.tracks.length; i++) {
+      trackHashArray.push(0);
+    }
     const trackNames = publishValues.tracks.map((track) => track.name);
     let completeUploadCalled = false;
 
@@ -48,7 +51,7 @@ export const publishCollection = (publishValues) => {
 
                     if (!completeUploadCalled && !trackHashArray.includes(0)) {
                       completeUploadCalled = true;
-                      completeUpload(dispatch, getState, publishValues, trackNames, trackHashArray);
+                      completeUpload(dispatch, getState, publishValues, trackNames, trackHashArray, hashUpdateIndex);
                     }
                   });
               };
@@ -62,7 +65,7 @@ export const publishCollection = (publishValues) => {
   };
 };
 
-const completeUpload = (dispatch, getState, publishValues, trackNames, trackHashArray) => {
+const completeUpload = (dispatch, getState, publishValues, trackNames, trackHashArray, hashUpdateIndex = undefined) => {
   const collectionHeader = {
     name: publishValues.albumName,
     releaseYear: publishValues.albumYear,
@@ -88,6 +91,12 @@ const completeUpload = (dispatch, getState, publishValues, trackNames, trackHash
       return artistFactory.methods.getArtist(accounts[0]).call();
     })
     .then((contractAddress) => {
+      if (hashUpdateIndex) {
+        return Artist(contractAddress).methods.updateIpfsCollection(hashUpdateIndex, headerHash).send({
+          from: getState().user.selectedAccount,
+          gas: '5000000'
+        });
+      }
       return Artist(contractAddress).methods.addIpfsCollection(headerHash).send({
         from: getState().user.selectedAccount,
         gas: '5000000'
