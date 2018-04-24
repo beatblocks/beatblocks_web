@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { WebPlayerSideBar, WebPlayerFooter, BbButton } from '../components/common';
-import { getArtistsAndInfo } from '../actions';
+import { getArtistsAndInfo, pickArtistAndCollection } from '../actions';
 import { getIpfsEndpoint } from '../utils/ipfsUtils';
 import { weiToEther } from '../utils';
 import './pageStyles.css';
@@ -26,13 +26,21 @@ class WebPlayerBrowse extends Component {
     );
   }
 
+  goToWebPlayerPlay = (artist, collectionHeader) => () => {
+    this.props.pickArtistAndCollection(artist, collectionHeader);
+};
+
   renderAlbumCards = () => {
     return this.props.browseData.map((artist) => {
       const sumOfSongs = artist.collectionHeaders.reduce(((total, ch) => total + ch.trackHashes.length), 0);
-      return artist.collectionHeaders.map((collectionHeader, index) => {
+      return artist.collectionHeaders.map((collectionHeader, collectionIndex) => {
         const { imgHash } = collectionHeader;
         return (
-          <div className="WebPlayerBrowse-card" key={index}>
+          <div
+            className="WebPlayerBrowse-card"
+            key={collectionIndex}
+            onClick={this.goToWebPlayerPlay(artist, collectionHeader)}
+          >
             <div>
               <img role="presentation" src={getIpfsEndpoint(imgHash)} />
             </div>
@@ -68,6 +76,6 @@ const mapStateToProps = (state) => {
   };
 };
 
-WebPlayerBrowse = connect(mapStateToProps, { getArtistsAndInfo })(WebPlayerBrowse);
+WebPlayerBrowse = connect(mapStateToProps, { getArtistsAndInfo, pickArtistAndCollection })(WebPlayerBrowse);
 
 export { WebPlayerBrowse };

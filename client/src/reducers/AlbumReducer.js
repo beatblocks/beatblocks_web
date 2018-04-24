@@ -1,46 +1,21 @@
 import {
   SELECT_TRACK,
   NEXT_TRACK,
-  SELECT_ALBUM
+  SELECT_ALBUM,
+  CLEAR_SELECTION
 } from '../actions';
-import album from '../assests/albumexample.jpeg';
-import around from '../assests/sounds/around.mp3';
-import chance from '../assests/sounds/chance.mp3';
-import dawn from '../assests/sounds/dawn.mp3';
-
-const tracks = [
-  {
-    title: 'around',
-    mp3: around,
-    metadata: {
-      duration: '12:00'
-    }
-  },
-  {
-    title: 'chance',
-    mp3: chance,
-    metadata: {
-      duration: '12:00'
-    }
-  },
-  {
-    title: 'dawn',
-    mp3: dawn,
-    metadata: {
-      duration: '12:00'
-    }
-  },
-];
 
 const initialState = {
-  title: 'We are the Best',
-  artist: 'The Bois',
-  img: album,
-  releaseYear: '2018',
-  tracks,
+  artistName: '',
+  collectionName: '',
+  imgHash: '',
+  subscriptionLengthInSeconds: 0,
+  subscriptionPriceInWei: 0,
+  releaseYear: 0,
+  trackNames: [],
+  trackHashes: [],
   playQueue: [],
-  selectedTrack: '',
-  subscribed: true
+  selectedTrackHash: '',
 };
 
 export const AlbumReducer = (state = initialState, action) => {
@@ -48,21 +23,37 @@ export const AlbumReducer = (state = initialState, action) => {
     case SELECT_ALBUM:
       return {
         ...state,
-        title: action.payload.title,
-        artist: action.payload.img,
+        artistName: action.payload.artistName,
+        collectionName: action.payload.collectionName,
         releaseYear: action.payload.releaseYear,
-        tracks: action.payload.tracks,
+        subscriptionLengthInSeconds: action.payload.subscriptionLengthInSeconds,
+        subscriptionPriceInWei: action.payload.subscriptionPriceInWei,
+        trackNames: action.payload.trackNames,
+        trackHashes: action.payload.trackHashes,
+        imgHash: action.payload.imgHash,
+      };
+    case CLEAR_SELECTION:
+      return {
+        ...state,
+        artistName: '',
+        collectionName: '',
+        imgHash: '',
+        subscriptionLengthInSeconds: 0,
+        subscriptionPriceInWei: 0,
+        releaseYear: 0,
+        trackNames: [],
+        trackHashes: [],
       };
     case SELECT_TRACK:
       return {
         ...state,
-        selectedTrack: state.tracks[action.payload],
-        playQueue: state.tracks.slice(action.payload + 1, state.tracks.length)
+        selectedTrackHash: state.trackHashes[action.payload],
+        playQueue: state.trackHashes.slice(action.payload + 1, state.trackHashes.length)
       };
     case NEXT_TRACK:
       return {
         ...state,
-        selectedTrack: state.playQueue[0],
+        selectedTrackHash: state.playQueue[0],
         playQueue: state.playQueue.slice(1, state.playQueue.length)
       };
     default:

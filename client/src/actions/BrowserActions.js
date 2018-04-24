@@ -2,10 +2,16 @@ import { artistFactory, Artist } from '../ethereum';
 import ipfs from '../ipfs';
 import {
   SET_BROWSE_DATA,
-} from './types';
+  SELECT_ALBUM,
+  CLEAR_SELECTION
+  } from './types';
+import history from '../history';
 
 export const getArtistsAndInfo = () => {
   return (dispatch) => {
+    dispatch({
+      type: CLEAR_SELECTION
+    });
     let artistContracts;
     let generalInformationArrays;
     let allHeaders;
@@ -57,5 +63,36 @@ export const getArtistsAndInfo = () => {
           payload: browseData
         });
       });
+  };
+};
+
+export const pickArtistAndCollection = (artist, header) => {
+  const {
+    name: artistName,
+    subscriptionPriceInWei,
+    subscriptionLengthInSeconds,
+  } = artist;
+  const {
+    name: collectionName,
+    trackNames,
+    trackHashes,
+    imgHash,
+    releaseYear
+  } = header;
+  return (dispatch) => {
+    dispatch({
+      type: SELECT_ALBUM,
+      payload: {
+        artistName,
+        collectionName,
+        subscriptionLengthInSeconds,
+        subscriptionPriceInWei,
+        trackNames,
+        trackHashes,
+        imgHash,
+        releaseYear
+      }
+    });
+    history.push('/player/play');
   };
 };

@@ -59,7 +59,6 @@ class PublishForm extends Component {
   }
   componentWillMount() {
     if (this.updating) {
-      console.log(this.props.location.state.initialValues)
       this.props.initialize(this.props.location.state.initialValues);
     }
   }
@@ -120,7 +119,9 @@ class PublishForm extends Component {
 
   publishCollection = (values) => {
     let index;
-    if (this.updating) index = this.props.location.state.index;
+    if (this.updating) {
+      index = this.props.location.state.index;
+    }
     this.props.publishCollection(values, index);
   };
 }

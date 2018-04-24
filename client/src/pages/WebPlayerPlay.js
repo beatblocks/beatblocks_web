@@ -2,24 +2,36 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { WebPlayerSideBar, WebPlayerFooter, BbButton } from '../components/common';
 import { selectTrack } from '../actions';
+import { getIpfsEndpoint } from '../utils/ipfsUtils';
+import { weiToEther } from '../utils';
 import './pageStyles.css';
 
 class WebPlayerPlay extends Component {
   render() {
-    const { img, title, artist, releaseYear, tracks } = this.props;
+    const {
+      imgHash,
+      artistName,
+      collectionName,
+      releaseYear,
+      trackNames,
+      subscriptionPriceInWei,
+      subscriptionLengthInSeconds
+    } = this.props;
     return (
       <div className="WebPlayer-container">
         <WebPlayerSideBar />
         <div className="WebPlayer-content">
           <div className="WebPlayer-album-info">
             <div className="WebPlayer-album-info-cell">
-              <img src={img} role="presentation" />
+              <img src={getIpfsEndpoint(imgHash)} role="presentation" />
             </div>
             <div id="album-details" className="WebPlayer-album-info-cell">
-              <div id="album-title"><p>{title}</p></div>
-              <div id="album-artist"><p>{artist}</p></div>
-              <div id="album-info"><p>{releaseYear} - {tracks.length} Songs</p></div>
-              <div id="album-subscribe"><BbButton classNames={['btn-cta-primary']}>Subscribe</BbButton></div>
+              <div><p>{collectionName}</p></div>
+              <div><p>{artistName}</p></div>
+              <div><p>{releaseYear} - {trackNames.length} Songs</p></div>
+              <div><BbButton classNames={['btn-good']}>Subscribe</BbButton></div>
+              <div><p>{weiToEther(subscriptionPriceInWei).toString()} Ether</p></div>
+              <div><p>Subscription Length: {subscriptionLengthInSeconds} Seconds</p></div>
             </div>
           </div>
           <div className="WebPlayer-album-tracks-cell">
@@ -31,36 +43,47 @@ class WebPlayerPlay extends Component {
     );
   }
   getAlbumListElements() {
-    const { tracks, subscribed } = this.props;
-    return tracks.map((song, index) => {
+    const { trackNames } = this.props;
+    return trackNames.map((song, index) => {
       return (
         <div
           key={index}
-          className={subscribed ? 'WebPlayer-track' : 'WebPlayer-track-disabled'}
+          className={'WebPlayer-track'}
           onClick={this.selectTrack(index)}
         >
           <div className="WebPlayer-track-number"><p>{index + 1}.</p></div>
-          <div className="WebPlayer-track-title"><p>{song.title}</p></div>
-          <div className="WebPlayer-track-duration"><p>{song.metadata.duration}</p></div>
+          <div className="WebPlayer-track-title"><p>{song}</p></div>
+          {/*<div className="WebPlayer-track-duration"><p>{song.metadata.duration}</p></div>*/}
         </div>
       );
     });
   }
   selectTrack = (index) => () => {
-    if (!this.props.subscribed) return;
+    if (this.props.subscribed) return;
     this.props.selectTrack(index);
   };
 }
 
 const mapStateToProps = (state) => {
-  const { img, title, artist, releaseYear, tracks, subscribed } = state.album;
-  return {
-    img,
-    title,
-    artist,
+  const {
+    artistName,
+    collectionName,
+    subscriptionLengthInSeconds,
+    subscriptionPriceInWei,
+    trackNames,
+    trackHashes,
     releaseYear,
-    tracks,
-    subscribed
+    imgHash
+  } = state.album;
+  return {
+    artistName,
+    collectionName,
+    subscriptionLengthInSeconds,
+    subscriptionPriceInWei,
+    trackNames,
+    trackHashes,
+    releaseYear,
+    imgHash
   };
 };
 

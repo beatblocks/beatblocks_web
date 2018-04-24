@@ -6,6 +6,7 @@ export const SET_COLLECTION_HEADERS = 'set_collection_headers';
 export const CLEAR_USER = 'clear_user';
 
 export const SELECT_ALBUM = 'select_album';
+export const CLEAR_SELECTION = 'clear_selection';
 export const PREVIOUS_TRACK = 'previous_track';
 export const NEXT_TRACK = 'next_track';
 export const SELECT_TRACK = 'select_track';

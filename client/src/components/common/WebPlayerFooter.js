@@ -1,21 +1,19 @@
 import React, { Component } from 'react';
-import ReactAudioPlayer from 'react-audio-player';
+import ReactHowler from 'react-howler';
 import { connect } from 'react-redux';
 import { getNextTrack } from '../../actions';
+import { getIpfsEndpoint } from '../../utils/ipfsUtils';
 import './commonStyles.css';
 
 class WebPlayerFooter extends Component {
   render() {
-    let mp3 = '';
-    if (this.props.selectedTrack) mp3 = this.props.selectedTrack.mp3;
+    const selectedTrackHash = this.props.selectedTrackHash;
     return (
       <div className="WebPlayer-footer-container">
-        <ReactAudioPlayer
-          src={mp3}
-          autoPlay
-          controls
-          controlsList="nodownload"
-          onEnded={this.getNextTrack}
+        <ReactHowler
+          src={getIpfsEndpoint(selectedTrackHash)}
+          playing
+          format={['.mpeg']}
         />
       </div>
     );
@@ -26,10 +24,9 @@ class WebPlayerFooter extends Component {
 }
 
 const mapStateToProps = (state) => {
-  const { selectedTrack, tracks } = state.album;
+  const { selectedTrackHash } = state.album;
   return {
-    tracks,
-    selectedTrack
+    selectedTrackHash,
   };
 };
 
