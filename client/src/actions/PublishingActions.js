@@ -57,7 +57,7 @@ export const publishCollection = (publishValues, hashUpdateIndex = undefined) =>
               };
             };
             uploadTrack(index);
-            trackReader.readAsBinaryString(track.mp3);
+            trackReader.readAsArrayBuffer(track.mp3);
           });
         });
     };
@@ -91,12 +91,15 @@ const completeUpload = (dispatch, getState, publishValues, trackNames, trackHash
       return artistFactory.methods.getArtist(accounts[0]).call();
     })
     .then((contractAddress) => {
-      if (hashUpdateIndex) {
+      console.log('tw', hashUpdateIndex);
+      if (hashUpdateIndex !== undefined) {
+        console.log('tw', 'updateCalled');
         return Artist(contractAddress).methods.updateIpfsCollection(hashUpdateIndex, headerHash).send({
           from: getState().user.selectedAccount,
           gas: '5000000'
         });
       }
+      console.log('tw', 'createCalled');
       return Artist(contractAddress).methods.addIpfsCollection(headerHash).send({
         from: getState().user.selectedAccount,
         gas: '5000000'

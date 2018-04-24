@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import ReactHowler from 'react-howler';
+import ReactAudioPlayer from 'react-audio-player';
 import { connect } from 'react-redux';
 import { getNextTrack } from '../../actions';
 import { getIpfsEndpoint } from '../../utils/ipfsUtils';
@@ -10,10 +10,13 @@ class WebPlayerFooter extends Component {
     const selectedTrackHash = this.props.selectedTrackHash;
     return (
       <div className="WebPlayer-footer-container">
-        <ReactHowler
-          src={getIpfsEndpoint(selectedTrackHash)}
-          playing
-          format={['.mpeg']}
+        <ReactAudioPlayer
+          src={selectedTrackHash ? getIpfsEndpoint(selectedTrackHash) : undefined}
+          autoPlay
+          controls
+          controlsList="nodownload"
+          type="audio/mpeg"
+          onEnded={this.getNextTrack}
         />
       </div>
     );
