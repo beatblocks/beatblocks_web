@@ -60,6 +60,24 @@ export const createArtist = (values) => {
   };
 };
 
+export const deleteCollection = (index) => {
+  return (dispatch, getState) => {
+    Artist(getState().user.artistContractAddress).methods.removeIpfsCollection(index).send({
+      from: getState().user.selectedAccount,
+      gas: '1000000'
+    })
+      .then((response) => {
+        console.log(response);
+        dispatch({
+          type: CLEAR_USER
+        });
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
+};
+
 export const getArtistInfo = (dispatch, getState, contractAddress = undefined) => {
   const artistContract = Artist(contractAddress || getState().user.artistContractAddress);
   return artistContract.methods.getIpfsCollectionCount().call()

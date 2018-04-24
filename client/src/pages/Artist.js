@@ -3,9 +3,13 @@ import { connect } from 'react-redux';
 import { Header, Footer, BbButton } from '../components/common';
 import { ArtistForm } from '../components/forms';
 import { getIpfsEndpoint } from '../utils/ipfsUtils';
+import { deleteCollection } from '../actions';
 import './pageStyles.css';
 
 class Artist extends Component {
+  initiateDeleteCollection = (index) => () => {
+    this.props.deleteCollection(index);
+  };
   getInitialValuesForUpdate = ({ imgHash, name, releaseYear, trackHashes, trackNames }) => {
     return {
       albumImg: imgHash,
@@ -48,7 +52,7 @@ class Artist extends Component {
             >
               Update
             </BbButton>
-            <BbButton classNames={['btn-danger', 'btn-small']}>
+            <BbButton classNames={['btn-danger', 'btn-small']} onClick={this.initiateDeleteCollection(index)}>
               Remove
             </BbButton>
           </div>
@@ -100,6 +104,6 @@ const mapStateToProps = (state) => {
   };
 };
 
-Artist = connect(mapStateToProps, { })(Artist);
+Artist = connect(mapStateToProps, { deleteCollection })(Artist);
 
 export { Artist };
