@@ -1,6 +1,8 @@
 export const SET_ETH_ACCOUNT = 'set_eth_account';
 export const SET_ETH_PRICE = 'set_eth_price';
 export const SET_IS_ARTIST = 'set_is_artist';
+export const SET_COLLECTION_ADDRESSES = 'set_collection_addresses';
+export const SET_COLLECTION_HEADERS = 'set_collection_headers';
 
 export const SELECT_ALBUM = 'select_album';
 export const PREVIOUS_TRACK = 'previous_track';

@@ -206,10 +206,34 @@
     align-self: center;
 }
 
-.ArtistPage-container div {
+.ArtistPage-container > div {
     padding-top: 10px;
 }
 
 .ArtistPage-manage-container {
     height: 400px;
+    overflow-y: scroll;
+    padding-right: 10px;
+    padding-left: 10px;
+}
+
+.ArtistPage-collection-card {
+    height: 100px;
+    width: 100%;
+    display: flex;
+    border: solid 1px gray;
+    border-radius: 6px;
+    margin-bottom: 10px;
+}
+
+.ArtistPage-collection-card > div {
+    padding: 15px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.ArtistPage-collection-card img {
+    height: 80px;
+    width: 80px;
 }

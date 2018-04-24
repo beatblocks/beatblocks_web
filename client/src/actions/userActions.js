@@ -1,6 +1,7 @@
-import { web3, artistFactory } from '../ethereum';
+import { web3, artistFactory, Artist } from '../ethereum';
 import { etherToWei } from '../utils';
-import { SET_ETH_ACCOUNT, SET_IS_ARTIST } from './types';
+import ipfs from '../ipfs';
+import { SET_ETH_ACCOUNT, SET_IS_ARTIST, SET_COLLECTION_ADDRESSES, SET_COLLECTION_HEADERS } from './types';
 
 export const setAccounts = () => {
   return (dispatch, getState) => {
@@ -14,15 +15,19 @@ export const setAccounts = () => {
         }
         return artistFactory.methods.getArtist(getState().user.selectedAccount).call();
       })
-      .then((response) => {
+      .then((artistContractAddress) => {
         let isArtist = false;
-        if (response) {
+        if (artistContractAddress) {
           isArtist = true;
         }
         if (getState().user.isArtist !== isArtist) {
+          getArtistInfo(dispatch, getState, artistContractAddress);
           dispatch({
             type: SET_IS_ARTIST,
-            payload: isArtist
+            payload: {
+              isArtist,
+              artistContractAddress
+            }
           });
         }
       });
@@ -43,4 +48,30 @@ export const createArtist = (values) => {
         console.log(err);
       });
   };
+};
+
+const getArtistInfo = (dispatch, getState, contractAddress = undefined) => {
+  const artistContract = Artist(contractAddress || getState().user.artistContractAddress);
+  artistContract.methods.getIpfsCollectionCount().call()
+    .then((count) => {
+      const ipfsHashPromises = [];
+      for (let i = 0; i < count; i++) {
+        ipfsHashPromises.push(artistContract.methods.getIpfsCollection(i).call());
+      }
+      Promise.all(ipfsHashPromises)
+        .then((IpfsHeaderHashesArray) => {
+          dispatch({
+            type: SET_COLLECTION_ADDRESSES,
+            payload: IpfsHeaderHashesArray
+          });
+          return Promise.all(IpfsHeaderHashesArray.map((headerHash) => ipfs.files.get(headerHash)));
+        })
+        .then((jsonHeaders) => {
+          const decoder = new TextDecoder("utf-8");
+          dispatch({
+            type: SET_COLLECTION_HEADERS,
+            payload: jsonHeaders.map((jsonHeader) => JSON.parse(new TextDecoder("utf-8").decode(jsonHeader[0].content)))
+          });
+        });
+    });
 };
