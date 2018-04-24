@@ -57,11 +57,11 @@ class WebPlayerBrowse extends Component {
               <p>Subscription Price: {weiToEther(artist.subscriptionPriceInWei).toString()} Ether</p>
               <p>Subscription Length: {artist.subscriptionLengthInSeconds} Seconds</p>
             </div>
-            <div id="subscribe-btn-div">
-              <BbButton classNames={['btn-good']}>
-                Subscribe
-              </BbButton>
-            </div>
+            {/*<div id="subscribe-btn-div">*/}
+              {/*<BbButton classNames={['btn-good']}>*/}
+                {/*Subscribe*/}
+              {/*</BbButton>*/}
+            {/*</div>*/}
           </div>
         );
       })
