@@ -17,8 +17,8 @@ class Home extends Component {
             <BbButton classNames={['btn-cta-primary']} to="/player/browse">
               Browse
             </BbButton>
-            <BbButton classNames={['btn-cta-secondary']} to="/artist/publish">
-              Publish
+            <BbButton classNames={['btn-cta-secondary']} to="/artist">
+              Artists
             </BbButton>
           </div>
         </div>

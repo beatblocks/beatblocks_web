@@ -196,3 +196,16 @@
 .PublishForm-buttons {
     grid-area: buttons;
 }
+
+.ArtistPage-container {
+    height: 100%;
+    width: 42em;
+    padding: 150px 50px 50px 50px;
+    margin: auto;
+    text-align: center;
+    align-self: center;
+}
+
+.ArtistPage-container div {
+    padding-top: 10px;
+}

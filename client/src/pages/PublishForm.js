@@ -98,9 +98,6 @@ class PublishForm extends Component {
                 <BbButton classNames={['btn-cta-primary']} type="submit">
                   Submit
                 </BbButton>
-                <BbButton classNames={['btn-danger']} type="button">
-                  Clear
-                </BbButton>
               </div>
             </div>
           </form>
