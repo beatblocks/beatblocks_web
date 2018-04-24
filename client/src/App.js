@@ -21,7 +21,7 @@ class App extends Component {
           <div>
             <Route path="/" exact component={Home} />
             <Route path="/artist/publish" component={PublishForm} />
-            <Route path="/artist" component={Artist} />
+            <Route path="/artist/manage" component={Artist} />
             <Route path="/player/browse" component={WebPlayerPlay} />
             <Route path="/player/music" component={WebPlayerPlay} />
           </div>

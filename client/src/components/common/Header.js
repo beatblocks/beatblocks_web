@@ -24,7 +24,7 @@ class Header extends Component {
         </div>
         <div className="Header-right">
           <Link to={'/player/browse'} className="Header-link">Web Player</Link>
-          <Link to={'/artist'} className="Header-link">Artists</Link>
+          <Link to={'/artist/manage'} className="Header-link">Artists</Link>
           <Link to={'/'} className="Header-link">Home</Link>
         </div>
       </header>

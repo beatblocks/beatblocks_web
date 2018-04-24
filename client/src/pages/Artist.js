@@ -22,7 +22,17 @@ class Artist extends Component {
     return (
       <div>
         <Header />
-        Manage Content
+        <div className="ArtistPage-container">
+          <h2>Manage Content</h2>
+          <div className="ArtistPage-manage-container">
+
+          </div>
+          <div>
+            <BbButton classNames={['btn-cta-primary']} to={'/artist/publish'}>
+              Publish
+            </BbButton>
+          </div>
+        </div>
         <Footer />
       </div>
     );

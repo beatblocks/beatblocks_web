@@ -2,7 +2,7 @@ import { SET_ETH_ACCOUNT, SET_IS_ARTIST } from '../actions/types';
 
 const initialState = {
   accounts: [],
-  slectedAccount: '',
+  selectedAccount: '',
   isArtist: false,
 };
 

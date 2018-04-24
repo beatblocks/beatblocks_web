@@ -4,8 +4,8 @@ import {
   IPFS_IMG_COMPLETE,
   IPFS_TRACK_COMPLETE,
   IPFS_UPLOAD_COMPLETE,
-  IPFS_INFO_COMPLETE
 } from './types';
+import { Artist, artistFactory, web3 } from '../ethereum';
 
 export const publishCollection = (publishValues) => {
   return (dispatch, getState) => {
@@ -15,8 +15,7 @@ export const publishCollection = (publishValues) => {
 
     const trackHashArray = Array(publishValues.tracks.length, 0);
     const trackNames = publishValues.tracks.map((track) => track.name);
-
-    console.log(publishValues);
+    let completeUploadCalled = false;
 
     // Upload the image first
     const imgReader = new window.FileReader();
@@ -45,7 +44,8 @@ export const publishCollection = (publishValues) => {
                     });
                     trackHashArray[i] = trackResponse[0].hash;
 
-                    if (!trackHashArray.includes(0)) {
+                    if (!completeUploadCalled && !trackHashArray.includes(0)) {
+                      completeUploadCalled = true;
                       completeUpload(dispatch, getState, publishValues, trackNames, trackHashArray);
                     }
                   });
@@ -68,8 +68,10 @@ const completeUpload = (dispatch, getState, publishValues, trackNames, trackHash
     trackHashes: trackHashArray,
     imgHash: getState().publish.imgHash
   };
+  let headerHash;
   ipfs.files.add({ path: '', content: Buffer.from(JSON.stringify(collectionHeader)) })
     .then((headerResponse) => {
+      headerHash = headerResponse[0].hash;
       dispatch({
         type: IPFS_UPLOAD_COMPLETE,
         payload: {
@@ -78,5 +80,22 @@ const completeUpload = (dispatch, getState, publishValues, trackNames, trackHash
           collectionHeader
         }
       });
+      return web3.eth.getAccounts();
+    })
+    .then((accounts) => {
+      return artistFactory.methods.getArtist(accounts[0]).call();
+    })
+    .then((contractAddress) => {
+      return Artist(contractAddress).methods.addIpfsCollection(headerHash).send({
+        from: getState().user.selectedAccount,
+        gas: '5000000'
+      });
+    })
+    .then((publishResponse) => {
+      console.log(publishResponse);
+    })
+    .catch((err) => {
+      console.log(err);
     });
 };
+

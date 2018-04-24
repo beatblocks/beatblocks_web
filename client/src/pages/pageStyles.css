@@ -209,3 +209,7 @@
 .ArtistPage-container div {
     padding-top: 10px;
 }
+
+.ArtistPage-manage-container {
+    height: 400px;
+}
