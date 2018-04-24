@@ -1,7 +1,14 @@
 import { web3, artistFactory, Artist } from '../ethereum';
 import { etherToWei } from '../utils';
 import ipfs from '../ipfs';
-import { SET_ETH_ACCOUNT, SET_IS_ARTIST, SET_COLLECTION_ADDRESSES, SET_COLLECTION_HEADERS } from './types';
+import {
+  SET_ETH_ACCOUNT,
+  SET_IS_ARTIST,
+  SET_COLLECTION_ADDRESSES,
+  SET_COLLECTION_HEADERS,
+  CLEAR_USER,
+  EMPTY_ADDRESS
+} from './types';
 
 export const setAccounts = () => {
   return (dispatch, getState) => {
@@ -17,11 +24,10 @@ export const setAccounts = () => {
       })
       .then((artistContractAddress) => {
         let isArtist = false;
-        if (artistContractAddress) {
+        if (artistContractAddress !== EMPTY_ADDRESS) {
           isArtist = true;
         }
         if (getState().user.isArtist !== isArtist) {
-          getArtistInfo(dispatch, getState, artistContractAddress);
           dispatch({
             type: SET_IS_ARTIST,
             payload: {
@@ -29,6 +35,7 @@ export const setAccounts = () => {
               artistContractAddress
             }
           });
+          getArtistInfo(dispatch, getState, artistContractAddress);
         }
       });
   };
@@ -43,6 +50,9 @@ export const createArtist = (values) => {
     })
       .then((response) => {
         console.log(response);
+        dispatch({
+          type: CLEAR_USER
+        });
       })
       .catch((err) => {
         console.log(err);
@@ -50,9 +60,9 @@ export const createArtist = (values) => {
   };
 };
 
-const getArtistInfo = (dispatch, getState, contractAddress = undefined) => {
+export const getArtistInfo = (dispatch, getState, contractAddress = undefined) => {
   const artistContract = Artist(contractAddress || getState().user.artistContractAddress);
-  artistContract.methods.getIpfsCollectionCount().call()
+  return artistContract.methods.getIpfsCollectionCount().call()
     .then((count) => {
       const ipfsHashPromises = [];
       for (let i = 0; i < count; i++) {

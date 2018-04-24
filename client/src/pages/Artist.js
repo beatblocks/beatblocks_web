@@ -6,8 +6,23 @@ import { getIpfsEndpoint } from '../utils/ipfsUtils';
 import './pageStyles.css';
 
 class Artist extends Component {
+  getInitialValuesForUpdate = ({ imgHash, name, releaseYear, trackHashes, trackNames }) => {
+    return {
+      albumImg: imgHash,
+      albumName: name,
+      albumYear: releaseYear,
+      tracks: trackHashes.map((hash, index) => {
+        return {
+          name: trackNames[index],
+          mp3: getIpfsEndpoint(hash)
+        };
+      })
+    };
+  };
+
   renderCollectionCards = () => {
     return this.props.collectionHeaders.map((header, index) => {
+      const initialValues = this.getInitialValuesForUpdate(header);
       const { imgHash, name, releaseYear, trackHashes } = header;
       return (
         <div className="ArtistPage-collection-card" key={index}>
@@ -24,7 +39,13 @@ class Artist extends Component {
             <p>Year: {releaseYear}</p>
           </div>
           <div>
-            <BbButton classNames={['btn-cta-secondary', 'btn-small']}>
+            <BbButton
+              classNames={['btn-cta-secondary', 'btn-small']}
+              to={{
+                pathname: '/artist/publish',
+                state: { initialValues }
+              }}
+            >
               Update
             </BbButton>
             <BbButton classNames={['btn-danger', 'btn-small']}>

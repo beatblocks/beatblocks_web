@@ -1,4 +1,10 @@
-import { SET_ETH_ACCOUNT, SET_IS_ARTIST, SET_COLLECTION_ADDRESSES, SET_COLLECTION_HEADERS } from '../actions/types';
+import {
+  SET_ETH_ACCOUNT,
+  SET_IS_ARTIST,
+  SET_COLLECTION_ADDRESSES,
+  SET_COLLECTION_HEADERS,
+  CLEAR_USER,
+} from '../actions/types';
 
 const initialState = {
   accounts: [],
@@ -31,6 +37,10 @@ export const userReducer = (state = initialState, action) => {
       return {
         ...state,
         collectionHeaders: action.payload
+      };
+    case CLEAR_USER:
+      return {
+        initialState
       };
     default:
       return state;

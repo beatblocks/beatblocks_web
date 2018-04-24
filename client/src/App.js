@@ -3,10 +3,11 @@ import { createStore, applyMiddleware } from 'redux';
 import { Provider } from 'react-redux';
 import thunk from 'redux-thunk';
 import {
-  BrowserRouter as Router,
+  Router,
   Route,
 } from 'react-router-dom';
 import rootReducer from './reducers';
+import history from './history';
 import { Home, WebPlayerPlay, PublishForm, Artist } from './pages';
 
 class App extends Component {
@@ -17,7 +18,7 @@ class App extends Component {
   render() {
     return (
       <Provider store={this.store}>
-        <Router>
+        <Router history={history}>
           <div>
             <Route path="/" exact component={Home} />
             <Route path="/artist/publish" component={PublishForm} />

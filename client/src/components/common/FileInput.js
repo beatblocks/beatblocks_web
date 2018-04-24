@@ -7,7 +7,8 @@ const FileInput = ({
                        value: omitValue,
                        onChange,
                        onBlur,
-                       ...inputProps },
+                       ...inputProps
+                     },
                      meta: omitMeta,
                      ...props
                    }) => {

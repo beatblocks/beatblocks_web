@@ -30,6 +30,7 @@ const renderTracks = ({ fields, meta: { error } }) => (
                 name={`${track}.mp3`}
                 type="file"
                 component={FileInput}
+                accept=".mp3"
               />
             </div>
           </div>
@@ -53,6 +54,12 @@ class PublishForm extends Component {
     this.props.publishCollection(values);
   };
 
+  componentWillMount() {
+    if (this.props.location.state && this.props.location.state.initialValues) {
+      this.props.initialize(this.props.location.state.initialValues);
+    }
+  }
+
   render() {
     return (
       <div>
@@ -68,6 +75,7 @@ class PublishForm extends Component {
                         name="albumImg"
                         component={FileInput}
                         type="file"
+                        accept=".png, .jpg, .jpeg"
                       />
                     </div>
                   </div>
@@ -117,7 +125,7 @@ PublishForm = connect(mapStateToProps, { publishCollection })(PublishForm);
 
 PublishForm = reduxForm({
   form: 'PublishForm',
-  fields: ['albumImg', 'albumName', 'albumYear'],
+  fields: ['albumImg', 'albumName', 'albumYear', 'tracks'],
 })(PublishForm);
 
 export { PublishForm };

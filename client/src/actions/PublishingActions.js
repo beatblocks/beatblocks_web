@@ -6,6 +6,8 @@ import {
   IPFS_UPLOAD_COMPLETE,
 } from './types';
 import { Artist, artistFactory, web3 } from '../ethereum';
+import { getArtistInfo } from './';
+import history from '../history';
 
 export const publishCollection = (publishValues) => {
   return (dispatch, getState) => {
@@ -93,6 +95,10 @@ const completeUpload = (dispatch, getState, publishValues, trackNames, trackHash
     })
     .then((publishResponse) => {
       console.log(publishResponse);
+      getArtistInfo(dispatch, getState, getState().user.selectedAddress)
+        .then(() => {
+          history.push('/artist/manage');
+        });
     })
     .catch((err) => {
       console.log(err);
