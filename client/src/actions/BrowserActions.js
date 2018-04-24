@@ -48,7 +48,7 @@ export const getArtistsAndInfo = () => {
             subscriptionPriceInWei,
             subscriptionLengthInSeconds,
             IpfsHeaderHashesArray,
-            collectionHeader: allHeaders[index],
+            collectionHeaders: allHeaders[index],
             contract: artistContracts[index]
           };
         });
