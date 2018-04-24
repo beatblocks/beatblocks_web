@@ -277,3 +277,9 @@
 #subscribe-btn-div {
     padding-left: 10px;
 }
+
+.WebPlayer-subscription-area {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}

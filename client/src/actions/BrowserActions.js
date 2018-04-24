@@ -8,7 +8,7 @@ import {
 import history from '../history';
 
 export const getArtistsAndInfo = () => {
-  return (dispatch) => {
+  return (dispatch, getState) => {
     dispatch({
       type: CLEAR_SELECTION
     });
@@ -29,6 +29,7 @@ export const getArtistsAndInfo = () => {
             artistContracts[index].methods.name().call(),
             artistContracts[index].methods.subscriptionPriceInWei().call(),
             artistContracts[index].methods.subscriptionLengthInSeconds().call(),
+            artistContracts[index].methods.getUserSubscriptionTimestamp(getState().user.selectedAccount).call(),
           ];
           for (let i = 0; i < count; i++) {
             contractPromises.push(artistContracts[index].methods.getIpfsCollection(i).call());
@@ -39,7 +40,7 @@ export const getArtistsAndInfo = () => {
       .then((artistContractInformationArrays) => {
         generalInformationArrays = artistContractInformationArrays;
         return Promise.all(artistContractInformationArrays
-          .map(([name, subscriptionPriceInWei, subscriptionLengthInSeconds, ...IpfsHeaderHashesArray]) => {
+          .map(([name, subscriptionPriceInWei, subscriptionLengthInSeconds, subscriptionTimeStamp, ...IpfsHeaderHashesArray]) => {
             return Promise.all(IpfsHeaderHashesArray.map((headerHash) => ipfs.files.get(headerHash)));
           }));
       })
@@ -48,12 +49,13 @@ export const getArtistsAndInfo = () => {
           headers.map((jsonHeader) => JSON.parse(new TextDecoder("utf-8").decode(jsonHeader[0].content))));
 
         const browseData = generalInformationArrays
-          .map(([name, subscriptionPriceInWei, subscriptionLengthInSeconds, ...IpfsHeaderHashesArray], index) => {
+          .map(([name, subscriptionPriceInWei, subscriptionLengthInSeconds, subscriptionTimeStamp, ...IpfsHeaderHashesArray], index) => {
           return {
             name,
             subscriptionPriceInWei,
             subscriptionLengthInSeconds,
             IpfsHeaderHashesArray,
+            subscriptionTimeStamp,
             collectionHeaders: allHeaders[index],
             contract: artistContracts[index]
           };
@@ -71,6 +73,8 @@ export const pickArtistAndCollection = (artist, header) => {
     name: artistName,
     subscriptionPriceInWei,
     subscriptionLengthInSeconds,
+    subscriptionTimeStamp,
+    contract
   } = artist;
   const {
     name: collectionName,
@@ -90,7 +94,9 @@ export const pickArtistAndCollection = (artist, header) => {
         trackNames,
         trackHashes,
         imgHash,
-        releaseYear
+        releaseYear,
+        subscriptionTimeStamp,
+        contract
       }
     });
     history.push('/player/play');

@@ -2,7 +2,8 @@ import {
   SELECT_TRACK,
   NEXT_TRACK,
   SELECT_ALBUM,
-  CLEAR_SELECTION
+  CLEAR_SELECTION,
+  GET_TIMESTAMP
 } from '../actions';
 
 const initialState = {
@@ -15,6 +16,8 @@ const initialState = {
   trackNames: [],
   trackHashes: [],
   playQueue: [],
+  contract: {},
+  subscriptionTimeStamp: 0,
   selectedTrackHash: '',
 };
 
@@ -31,6 +34,8 @@ export const AlbumReducer = (state = initialState, action) => {
         trackNames: action.payload.trackNames,
         trackHashes: action.payload.trackHashes,
         imgHash: action.payload.imgHash,
+        subscriptionTimeStamp: action.payload.subscriptionTimeStamp,
+        contract: action.payload.contract,
       };
     case CLEAR_SELECTION:
       return {
@@ -55,6 +60,11 @@ export const AlbumReducer = (state = initialState, action) => {
         ...state,
         selectedTrackHash: state.playQueue[0],
         playQueue: state.playQueue.slice(1, state.playQueue.length)
+      };
+    case GET_TIMESTAMP:
+      return {
+        ...state,
+        subscriptionTimeStamp: action.payload
       };
     default:
       return state;

@@ -107,7 +107,7 @@ const completeUpload = (dispatch, getState, publishValues, trackNames, trackHash
     })
     .then((publishResponse) => {
       console.log(publishResponse);
-      getArtistInfo(dispatch, getState, getState().user.selectedAddress)
+      getArtistInfo(dispatch, getState, getState().user.artistContractAddress)
         .then(() => {
           history.push('/artist/manage');
         });
