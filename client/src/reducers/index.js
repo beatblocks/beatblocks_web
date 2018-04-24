@@ -4,13 +4,15 @@ import { userReducer } from './userReducer';
 import { AlbumReducer } from './AlbumReducer';
 import { PublishReducer } from './PublishReducer';
 import { EthereumReducer } from './EthereumReducer';
+import { BrowseReducer } from './BrowseReducer';
 
 const rootReducer = combineReducers({
   form: formReducer,
   user: userReducer,
   album: AlbumReducer,
   publish: PublishReducer,
-  ethereum: EthereumReducer
+  ethereum: EthereumReducer,
+  browse: BrowseReducer
 });
 
 export default rootReducer;

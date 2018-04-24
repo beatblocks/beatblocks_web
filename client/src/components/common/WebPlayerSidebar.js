@@ -23,7 +23,6 @@ class WebPlayerSideBar extends Component {
         </div>
         <div className="WebPlayer-sidebar-links-container">
           <Link to={'/player/browse'} className="WebPlayer-sidebar-link">Browse</Link>
-          <Link to={'/player/music'} className="WebPlayer-sidebar-link">My Music</Link>
           <Link to={'/'} className="WebPlayer-sidebar-link">Home</Link>
         </div>
       </div>
@@ -31,6 +30,6 @@ class WebPlayerSideBar extends Component {
   }
 }
 
-WebPlayerSideBar = connect(null, { setAccounts });
+WebPlayerSideBar = connect(null, { setAccounts })(WebPlayerSideBar);
 
 export { WebPlayerSideBar };

@@ -9,6 +9,7 @@ export const SELECT_ALBUM = 'select_album';
 export const PREVIOUS_TRACK = 'previous_track';
 export const NEXT_TRACK = 'next_track';
 export const SELECT_TRACK = 'select_track';
+export const SET_BROWSE_DATA = 'set_browse_data';
 
 export const PUBLISH_LOADING = 'publish_loading';
 export const IPFS_IMG_COMPLETE = 'ipfs_img_complete';
