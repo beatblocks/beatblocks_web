@@ -1,12 +1,16 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { reduxForm, Field } from 'redux-form';
-import { createArtist } from '../../actions';
+import { createArtist, updateArtist } from '../../actions';
 import { BbButton } from '../common';
 import './formStyles.css';
 
 class ArtistForm extends Component {
   createArtist = (values) => {
+    if (this.props.updating) {
+      this.props.updateArtist(values);
+      return;
+    }
     this.props.createArtist(values);
   };
 
@@ -63,7 +67,7 @@ const mapStateToProps = (state) => {
   };
 };
 
-ArtistForm = connect(mapStateToProps, { createArtist })(ArtistForm);
+ArtistForm = connect(mapStateToProps, { createArtist, updateArtist })(ArtistForm);
 
 ArtistForm = reduxForm({
   form: 'ArtistForm',

@@ -53,16 +53,13 @@ class PublishForm extends Component {
   constructor(props) {
     super(props);
     this.updating = false;
-    if (this.props.location.state && this.props.location.state.initialValues) {
+    if (this.props.location && this.props.location.state && this.props.location.state.initialValues) {
       this.updating = true;
     }
   }
-  publishCollection = (values) => {
-    this.props.publishCollection(values, this.props.location.state.index);
-  };
-
   componentWillMount() {
     if (this.updating) {
+      console.log(this.props.location.state.initialValues)
       this.props.initialize(this.props.location.state.initialValues);
     }
   }
@@ -120,6 +117,12 @@ class PublishForm extends Component {
       </div>
     );
   }
+
+  publishCollection = (values) => {
+    let index;
+    if (this.updating) index = this.props.location.state.index;
+    this.props.publishCollection(values, index);
+  };
 }
 
 const mapStateToProps = (state) => {

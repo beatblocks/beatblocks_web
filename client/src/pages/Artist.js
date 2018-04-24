@@ -1,9 +1,10 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Header, Footer, BbButton } from '../components/common';
-import { ArtistForm } from '../components/forms';
 import { getIpfsEndpoint } from '../utils/ipfsUtils';
 import { deleteCollection } from '../actions';
+import { ArtistFormPage } from './ArtistFormPage';
+import { weiToEther } from '../utils';
 import './pageStyles.css';
 
 class Artist extends Component {
@@ -63,15 +64,7 @@ class Artist extends Component {
   render() {
     if (!this.props.isArtist) {
       return (
-        <div>
-          <Header />
-          <div className="ArtistPage-container">
-            <h2>Not signed up?</h2>
-            <p>Sign up to publish your content!</p>
-            <ArtistForm />
-          </div>
-          <Footer />
-        </div>
+        <ArtistFormPage />
       );
     }
     return (
@@ -88,6 +81,21 @@ class Artist extends Component {
             <BbButton classNames={['btn-cta-primary']} to={'/artist/publish'}>
               Publish
             </BbButton>
+            <BbButton
+              classNames={['btn-good']}
+              to={{
+                pathname: '/artist/generalInfo',
+                state: {
+                  initialValues: {
+                    artistName: this.props.name,
+                    subscriptionPrice: weiToEther(this.props.subscriptionPriceInWei),
+                    subscriptionLength: this.props.subscriptionLengthInSeconds,
+                  }
+                }
+              }}
+            >
+              General Information
+            </BbButton>
           </div>
         </div>
         <Footer />
@@ -97,10 +105,19 @@ class Artist extends Component {
 }
 
 const mapStateToProps = (state) => {
-  const { isArtist, collectionHeaders } = state.user;
+  const {
+    isArtist,
+    collectionHeaders,
+    name,
+    subscriptionPriceInWei,
+    subscriptionLengthInSeconds,
+  } = state.user;
   return {
     isArtist,
-    collectionHeaders
+    collectionHeaders,
+    name,
+    subscriptionPriceInWei,
+    subscriptionLengthInSeconds,
   };
 };
 

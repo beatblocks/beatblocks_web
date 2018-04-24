@@ -1,15 +1,20 @@
 import {
   SET_ETH_ACCOUNT,
   SET_IS_ARTIST,
-  SET_COLLECTION_ADDRESSES,
+  SET_ARTIST_INFORMATION,
   SET_COLLECTION_HEADERS,
   CLEAR_USER,
+  USER_LOADING
 } from '../actions/types';
 
 const initialState = {
   accounts: [],
   selectedAccount: '',
   isArtist: false,
+  loading: false,
+  name: '',
+  subscriptionPriceInWei: 0,
+  subscriptionLengthInSeconds: 0,
   artistContractAddress: '',
   collectionHeaderAddresses: []
 };
@@ -28,15 +33,23 @@ export const userReducer = (state = initialState, action) => {
         isArtist: action.payload.isArtist,
         artistContractAddress: action.payload.artistContractAddress
       };
-    case SET_COLLECTION_ADDRESSES:
+    case SET_ARTIST_INFORMATION:
       return {
         ...state,
-        collectionHeaderAddresses: action.payload
+        collectionHeaderAddresses: action.payload.collectionHeaderAddresses,
+        name: action.payload.name,
+        subscriptionPriceInWei: action.payload.subscriptionPriceInWei,
+        subscriptionLengthInSeconds: action.payload.subscriptionLengthInSeconds,
       };
     case SET_COLLECTION_HEADERS:
       return {
         ...state,
-        collectionHeaders: action.payload
+        collectionHeaders: action.payload,
+      };
+    case USER_LOADING:
+      return {
+        ...state,
+        loading: action.payload
       };
     case CLEAR_USER:
       return {

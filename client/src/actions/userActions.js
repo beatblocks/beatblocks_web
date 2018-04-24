@@ -4,11 +4,12 @@ import ipfs from '../ipfs';
 import {
   SET_ETH_ACCOUNT,
   SET_IS_ARTIST,
-  SET_COLLECTION_ADDRESSES,
+  SET_ARTIST_INFORMATION,
   SET_COLLECTION_HEADERS,
   CLEAR_USER,
-  EMPTY_ADDRESS
+  EMPTY_ADDRESS,
 } from './types';
+import history from '../history';
 
 export const setAccounts = () => {
   return (dispatch, getState) => {
@@ -60,6 +61,27 @@ export const createArtist = (values) => {
   };
 };
 
+export const updateArtist = (values) => {
+  const { artistName, subscriptionPrice, subscriptionLength } = values;
+  return (dispatch, getState) => {
+    Artist(getState().user.artistContractAddress)
+      .methods.updateGeneralInformation(artistName, etherToWei(subscriptionPrice), subscriptionLength).send({
+      from: getState().user.selectedAccount,
+      gas: '1000000'
+    })
+      .then((response) => {
+        console.log(response);
+        dispatch({
+          type: CLEAR_USER
+        });
+        history.push('/artist/manage');
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
+};
+
 export const deleteCollection = (index) => {
   return (dispatch, getState) => {
     Artist(getState().user.artistContractAddress).methods.removeIpfsCollection(index).send({
@@ -82,15 +104,25 @@ export const getArtistInfo = (dispatch, getState, contractAddress = undefined) =
   const artistContract = Artist(contractAddress || getState().user.artistContractAddress);
   return artistContract.methods.getIpfsCollectionCount().call()
     .then((count) => {
-      const ipfsHashPromises = [];
+      const contractPromises = [
+        artistContract.methods.name().call(),
+        artistContract.methods.subscriptionPriceInWei().call(),
+        artistContract.methods.subscriptionLengthInSeconds().call(),
+      ];
       for (let i = 0; i < count; i++) {
-        ipfsHashPromises.push(artistContract.methods.getIpfsCollection(i).call());
+        contractPromises.push(artistContract.methods.getIpfsCollection(i).call());
       }
-      Promise.all(ipfsHashPromises)
-        .then((IpfsHeaderHashesArray) => {
+      Promise.all(contractPromises)
+        .then(([name, subscriptionPriceInWei, subscriptionLengthInSeconds, ...IpfsHeaderHashesArray]) => {
+          console.log(subscriptionPriceInWei)
           dispatch({
-            type: SET_COLLECTION_ADDRESSES,
-            payload: IpfsHeaderHashesArray
+            type: SET_ARTIST_INFORMATION,
+            payload: {
+              collectionHeaderAddresses: IpfsHeaderHashesArray,
+              name,
+              subscriptionPriceInWei,
+              subscriptionLengthInSeconds
+            }
           });
           return Promise.all(IpfsHeaderHashesArray.map((headerHash) => ipfs.files.get(headerHash)));
         })
