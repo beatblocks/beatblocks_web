@@ -36,12 +36,12 @@ Some of the important ones are:
     
 Areas of interest:
 
-/src/ethereum/contracts/BeatBlocks.sol - Solidity code for both contracts
-/src/ethereum/web3.js - Imports the reference to metamask's instance of web3
-/src/ethereum/deploy.js - Deploys the Artist Factory contract
-/src/ethereum/compile.js - Compiles each contract and writes their interfaces to build
-/src/ethereum/artistFactory.js - References the currently deployed Artist Factory
-/src/ethereum/Artist.js - "Constructor" for retrieving instance of the contract's interface using it's address
-/src/ethereum/build - The storage location for Smart Contract ABIs
-/src/ethereum/actions - This is where all the interactions with Ethereum happen
-/src/ethereum/reducers - This models the application's state and how it is effected.
+- /src/ethereum/contracts/BeatBlocks.sol - Solidity code for both contracts
+- /src/ethereum/web3.js - Imports the reference to metamask's instance of web3
+- /src/ethereum/deploy.js - Deploys the Artist Factory contract
+- /src/ethereum/compile.js - Compiles each contract and writes their interfaces to build
+- /src/ethereum/artistFactory.js - References the currently deployed Artist Factory
+- /src/ethereum/Artist.js - "Constructor" for retrieving instance of the contract's interface using it's address
+- /src/ethereum/build - The storage location for Smart Contract ABIs
+- /src/ethereum/actions - This is where all the interactions with Ethereum happen
+- /src/ethereum/reducers - This models the application's state and how it is effected.
