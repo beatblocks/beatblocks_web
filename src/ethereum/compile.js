@@ -2,6 +2,7 @@ const path = require('path');
 const solc = require('solc');
 const fs = require('fs-extra');
 
+// Reads contract and, compiles into ABI, and writes them into a json object
 const buildPath = path.resolve(__dirname, 'build');
 fs.removeSync(buildPath);
 
