@@ -2,6 +2,9 @@ const HDWalletProvider = require('truffle-hdwallet-provider');
 const Web3 = require('web3');
 const compiledFactory = require('./build/ArtistFactory.json');
 
+// https://rinkeby.infura.io/HO3oZr42gucgeB4Osb4k is node to the Rinkeby test network
+// The pnuemonic is for an account that has some ether in it
+// Necessary for deploying the Artist Factory
 const provider = new HDWalletProvider(
   'call glow acoustic vintage front ring trade assist shuffle mimic volume reject',
   'https://rinkeby.infura.io/HO3oZr42gucgeB4Osb4k'
