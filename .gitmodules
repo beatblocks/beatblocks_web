@@ -1,3 +1,0 @@
-[submodule "client/src/ethereum/contracts"]
-	path = client/src/ethereum/contracts
-	url = https://github.com/beatblocks/Contract
