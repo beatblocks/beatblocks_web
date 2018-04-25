@@ -22,17 +22,17 @@ App entry point is under App.js
 
 The app utilizes several frameworks that compose a MVC framework:
 
-Redux: Handles Model and Control
-React: Handles View
+- Redux: Handles Model and Control
+- React: Handles View
 
 Dependencies:
 
 All but metamask are all listed in the file called package.json
 
 Some of the important ones are:
-    web3.js - API that impliments Ethereum's RPC
-    ipfs-js - API for IPFS interaction
-    solc: Solidity compiler that provides ABI for smart contracts
+- web3.js - API that impliments Ethereum's RPC
+- ipfs-js - API for IPFS interaction
+- solc: Solidity compiler that provides ABI for smart contracts
     
 Areas of interest:
 
