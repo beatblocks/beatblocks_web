@@ -9,6 +9,8 @@ import { Artist, artistFactory, web3 } from '../ethereum';
 import { getArtistInfo } from './';
 import history from '../history';
 
+// Upload the files to IPFS first in order to get their hashes
+// Then try to store them in the aritis's contract
 export const publishCollection = (publishValues, hashUpdateIndex = undefined) => {
   return (dispatch, getState) => {
     dispatch({
@@ -65,6 +67,8 @@ export const publishCollection = (publishValues, hashUpdateIndex = undefined) =>
   };
 };
 
+// The part of publish that takes all the needed information and bundles it up into a header
+// The header is then published to Ethereum
 const completeUpload = (dispatch, getState, publishValues, trackNames, trackHashArray, hashUpdateIndex = undefined) => {
   const collectionHeader = {
     name: publishValues.albumName,

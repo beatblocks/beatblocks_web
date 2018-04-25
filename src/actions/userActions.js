@@ -11,6 +11,7 @@ import {
 } from './types';
 import history from '../history';
 
+// Detect users changing which account is selected from metamask
 export const setAccounts = () => {
   return (dispatch, getState) => {
     web3.eth.getAccounts()
@@ -42,6 +43,7 @@ export const setAccounts = () => {
   };
 };
 
+// Takes an artist's info and publishes a new contract for them
 export const createArtist = (values) => {
   const { artistName, subscriptionPrice, subscriptionLength } = values;
   return (dispatch, getState) => {
@@ -61,6 +63,7 @@ export const createArtist = (values) => {
   };
 };
 
+// Updates the artist's general information
 export const updateArtist = (values) => {
   const { artistName, subscriptionPrice, subscriptionLength } = values;
   return (dispatch, getState) => {
@@ -82,6 +85,7 @@ export const updateArtist = (values) => {
   };
 };
 
+// Removes a selected collection
 export const deleteCollection = (index) => {
   return (dispatch, getState) => {
     Artist(getState().user.artistContractAddress).methods.removeIpfsCollection(index).send({
@@ -100,6 +104,7 @@ export const deleteCollection = (index) => {
   };
 };
 
+// Aggregate all the neccasary info for an artist to manage their contract
 export const getArtistInfo = (dispatch, getState, contractAddress = undefined) => {
   const artistContract = Artist(contractAddress || getState().user.artistContractAddress);
   return artistContract.methods.getIpfsCollectionCount().call()

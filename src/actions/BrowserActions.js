@@ -7,6 +7,7 @@ import {
   } from './types';
 import history from '../history';
 
+// This function gets all the information needed to render the browsing page
 export const getArtistsAndInfo = () => {
   return (dispatch, getState) => {
     dispatch({
@@ -68,6 +69,7 @@ export const getArtistsAndInfo = () => {
   };
 };
 
+// Sets the state of the application to hold the information of the artist for a given collection
 export const pickArtistAndCollection = (artist, header) => {
   const {
     name: artistName,

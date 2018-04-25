@@ -13,6 +13,7 @@ export const getNextTrack = () => {
   };
 };
 
+// Get's the timestamp from the contract of the currently selected album
 export const getTimeStamp = () => {
   return (dispatch, getState) => {
     if (Object.keys(getState().album.contract).length > 0) {
@@ -31,6 +32,7 @@ export const getTimeStamp = () => {
   };
 };
 
+// Subscribes to the contract of the currently selected artist
 export const subscribe = () => {
   return (dispatch, getState) => {
     if (Object.keys(getState().album.contract).length > 0) {
