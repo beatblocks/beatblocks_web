@@ -9,6 +9,14 @@ Getting Metamask and some test ether:
 
 *Note: The applications contract is deployed on Rinkeby only
 
+Installing python:
+
+1. Download and install python 3.x.x: https://www.python.org/downloads/
+2. If on windows, run: npm --add-python-to-path=‘true’ --debug install --global windows-build-tools
+3. If on osx/linux make the python interpreter available on your path
+ - export PYTHONPATH=$PYTHONPATH:/your-python-location
+ - export PATH=$PATH:$PYTHONPATH
+
 Running the client:
 
 1. Install node and npm: https://nodejs.org/en/download/
